@@ -3,38 +3,38 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject startPanel;
-    public GameObject easyModePanel;
-    public GameObject normalModePanel;
-    public GameObject hardModePanel;
+    public GameObject Panel_Start;
+    public GameObject Panel_Easy;
+    public GameObject Panel_Normal;
+    public GameObject Panel_Hard;
 
     private void Start()
     {
         // Disable all game mode panels on start
-        easyModePanel.SetActive(false);
-        normalModePanel.SetActive(false);
-        hardModePanel.SetActive(false);
+        Panel_Easy.SetActive(false);
+        Panel_Normal.SetActive(false);
+        Panel_Hard.SetActive(false);
     }
 
     public void OnSelectModeButtonClick()
     {
         // Hide the start panel
-        startPanel.SetActive(false);
+        Panel_Start.SetActive(false);
 
         // Show the game mode panels
-        easyModePanel.SetActive(true);
-        normalModePanel.SetActive(true);
-        hardModePanel.SetActive(true);
+        Panel_Easy.SetActive(true);
+        Panel_Normal.SetActive(true);
+        Panel_Hard.SetActive(true);
     }
 
     public void OnBackButtonClick()
     {
         // Show the start panel
-        startPanel.SetActive(true);
+        Panel_Start.SetActive(true);
 
         // Hide the game mode panels
-        easyModePanel.SetActive(false);
-        normalModePanel.SetActive(false);
-        hardModePanel.SetActive(false);
+        Panel_Easy.SetActive(false);
+        Panel_Normal.SetActive(false);
+        Panel_Hard.SetActive(false);
     }
 }
