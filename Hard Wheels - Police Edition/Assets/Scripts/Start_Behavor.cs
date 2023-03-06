@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Menu_Behavor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class Start_Behavor : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+
     [SerializeField] private Image image;
     [SerializeField] private Sprite _default, pressed;
     public void OnPointerDown(PointerEventData eventData)
@@ -17,5 +18,4 @@ public class Menu_Behavor : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         image.sprite = _default;
     }
-
 }
