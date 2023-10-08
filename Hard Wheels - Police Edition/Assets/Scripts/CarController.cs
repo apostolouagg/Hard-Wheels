@@ -11,6 +11,8 @@ public class CarController : MonoBehaviour
 
     // Settings
     [SerializeField] private float motorForce, breakForce, maxSteerAngle;
+    [SerializeField] private float driftFactor; // Παράγοντας ντριφτ
+    [SerializeField] private float maxAngularVelocity; // Μέγιστη γωνιακή ταχύτητα
 
     // Wheel Colliders
     [SerializeField] private WheelCollider frontLeftWheelCollider, frontRightWheelCollider;
@@ -20,6 +22,16 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform frontLeftWheelTransform, frontRightWheelTransform;
     [SerializeField] private Transform backLeftWheelTransform, backRightWheelTransform;
 
+    // Explosion
+    [SerializeField] private GameObject explosion;
+
+    private Rigidbody myBody;
+
+    private void Awake()
+    {
+        myBody = GetComponent<Rigidbody>();
+    }
+
     private void FixedUpdate()
     {
         GetInput();
@@ -27,6 +39,7 @@ public class CarController : MonoBehaviour
         HandleSteering();
         UpdateWheels();
     }
+
 
     private void GetInput()
     {
@@ -42,19 +55,38 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
-        frontRightWheelCollider.motorTorque = verticalInput * motorForce;
-        currentbreakForce = isBreaking ? breakForce : 0f;
-        ApplyBreaking();
+        if (isBreaking && Mathf.Abs(horizontalInput) > 0)
+        {
+            float angularVelocity = myBody.angularVelocity.magnitude;
+
+            // Έλεγχος αν η γωνιακή ταχύτητα υπερβαίνει το μέγιστο όριο
+            if (angularVelocity > maxAngularVelocity)
+            {
+                // Περικόψτε τη γωνιακή ταχύτητα για να είναι μικρότερη από το μέγιστο όριο
+                myBody.angularVelocity = myBody.angularVelocity.normalized * maxAngularVelocity;
+            }
+
+            // Εφαρμόστε τον παράγοντα ντριφτ στην γωνιακή ταχύτητα
+            if (verticalInput != 0f)
+            {
+                myBody.angularVelocity *= driftFactor;
+            }
+        }
+        else
+        {
+            frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
+            frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+            currentbreakForce = isBreaking ? breakForce : 0f;
+            ApplyBreaking();
+        }
+
     }
 
     private void ApplyBreaking()
     {
         frontRightWheelCollider.brakeTorque = currentbreakForce;
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
-
         backLeftWheelCollider.brakeTorque = currentbreakForce;
-
         backRightWheelCollider.brakeTorque = currentbreakForce;
     }
 
@@ -69,9 +101,7 @@ public class CarController : MonoBehaviour
     {
         UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
         UpdateSingleWheel(frontRightWheelCollider, frontRightWheelTransform);
-
         UpdateSingleWheel(backRightWheelCollider, backRightWheelTransform);
-
         UpdateSingleWheel(backLeftWheelCollider, backLeftWheelTransform);
     }
 
@@ -83,4 +113,13 @@ public class CarController : MonoBehaviour
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
     }
-} 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Instantiate(explosion, transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
+            Destroy(gameObject);
+        }
+    }
+}
