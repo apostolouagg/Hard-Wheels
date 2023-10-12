@@ -12,14 +12,14 @@ TagManager:
   - 
   - Water
   - UI
+  - Enemy
+  - Player
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - boundries for player and police
+  - for all npc cars and walkers
+  - crossings for walkers
+  - crossing wall for all npc cars
   - 
   - 
   - 

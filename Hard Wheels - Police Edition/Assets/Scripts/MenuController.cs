@@ -6,26 +6,33 @@ public class MenuController : MonoBehaviour
 {
     public GameObject mainPanel;
     public GameObject briefPanel;
-    public GameObject levelPanel;
+    public GameObject levelsPanel;
     public GameObject controlsPanel;
+    public GameObject MenuBackground2;
+    public GameObject MenuBackground3;
 
     public Button easyButton;
     public Button mediumButton;
     public Button hardButton;
 
     private string selectedDifficulty;
+    public bool levelsIsOpen;
+    public bool controlsIsOpen;
+    public bool briefIsOpen;
 
     public void Start()
     {
         mainPanel.SetActive(true);
-        levelPanel.SetActive(false);
+        levelsPanel.SetActive(false);
         briefPanel.SetActive(false);
         controlsPanel.SetActive(false);
+        MenuBackground2.SetActive(false);
+        MenuBackground3.SetActive(false);
     }
 
     public void playButton()
     {
-
+        SceneManager.LoadScene("GameScene");
     }
 
     public void EasyDifficulty()
@@ -49,48 +56,97 @@ public class MenuController : MonoBehaviour
         // set the game difficulty to hard here
     }
 
+    //animation
     public void levelsButton()
     {
+        mainPanel.SetActive(true);
+        briefPanel.SetActive(false);
+        controlsPanel.SetActive(false);
+        levelsPanel.SetActive(true);
 
+        levelsIsOpen = isOpen(levelsIsOpen, levelsPanel);
     }
 
     public void xButton()
     {
+        if (!levelsIsOpen)
+        {
+            levelsIsOpen = isOpen(levelsIsOpen, levelsPanel);
+        }
 
+        mainPanel.SetActive(true);
+        briefPanel.SetActive(false);
+        controlsPanel.SetActive(false);
     }
 
     public void controlsButton()
     {
+        MenuBackground3.SetActive(false);
         briefPanel.SetActive(false);
         mainPanel.SetActive(false);
-        levelPanel.SetActive(false);
+        levelsPanel.SetActive(false);
         controlsPanel.SetActive(true);
-    }
 
-    public void BackButton()
-    {
-        mainPanel.SetActive(true);
-        levelPanel.SetActive(false);
-        briefPanel.SetActive(false);
-        controlsPanel.SetActive(false);
+        controlsIsOpen = isOpen(controlsIsOpen, controlsPanel);
     }
 
     //brief button
     public void BriefButton()
-    {
-        Debug.Log("Help");
-        // TODO: Add help code
-        briefPanel.SetActive(true);
-        mainPanel.SetActive(false);
-        levelPanel.SetActive(false);
+    {   
+        MenuBackground2.SetActive(false);
         controlsPanel.SetActive(false);
+        mainPanel.SetActive(false);
+        levelsPanel.SetActive(false);
+        briefPanel.SetActive(true);
+
+        briefIsOpen = isOpen(briefIsOpen, briefPanel);
     }
 
+    public void BackButton()
+    {
+        if (!controlsIsOpen)
+        {
+            MenuBackground3.SetActive(true);
+            controlsIsOpen = isOpen(controlsIsOpen, controlsPanel);
+
+            mainPanel.SetActive(true);
+            levelsPanel.SetActive(false);
+            briefPanel.SetActive(false);
+        }
+    }
+
+    public void BackButton2()
+    {
+        if (!briefIsOpen)
+        {
+            MenuBackground2.SetActive(true);
+            briefIsOpen = isOpen(briefIsOpen, briefPanel);
+
+            mainPanel.SetActive(true);
+            levelsPanel.SetActive(false);
+            controlsPanel.SetActive(false);
+        }
+    }
+
+    public bool isOpen(bool state, GameObject panel)
+    {
+        if (panel != null)
+        {
+            Animator animator = panel.GetComponent<Animator>();
+
+            if (animator != null)
+            {
+                state = animator.GetBool("open");
+                animator.SetBool("open", !state);
+            }
+        }
+
+        return state;
+    }
 
 
     public void ExitGame()
     {
-        Debug.Log("Quit");
         Application.Quit();
     }
 }
