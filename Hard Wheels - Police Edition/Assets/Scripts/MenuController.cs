@@ -32,15 +32,11 @@ public class MenuController : MonoBehaviour
         loadingPanel.SetActive(false);
     }
 
-    public void playButton()
-    {
-        //SceneManager.LoadScene("GameScene");
-    }
-
     public void EasyDifficulty()
     {
         selectedDifficulty = "Easy";
         PlayerPrefs.SetString("Difficulty", selectedDifficulty);
+        xButton();
         // set the game difficulty to easy here
     }
 
@@ -48,6 +44,7 @@ public class MenuController : MonoBehaviour
     {
         selectedDifficulty = "Normal";
         PlayerPrefs.SetString("Difficulty", selectedDifficulty);
+        xButton();
         // set the game difficulty to medium here
     }
 
@@ -55,6 +52,7 @@ public class MenuController : MonoBehaviour
     {
         selectedDifficulty = "Hard";
         PlayerPrefs.SetString("Difficulty", selectedDifficulty);
+        xButton();
         // set the game difficulty to hard here
     }
 
