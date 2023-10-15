@@ -27,9 +27,16 @@ public class CarController : MonoBehaviour
 
     private Rigidbody myBody;
 
+    public GameObject gameOverPanel;
+
     private void Awake()
     {
         myBody = GetComponent<Rigidbody>();
+    }
+
+    void Start()
+    {
+        gameOverPanel.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -120,6 +127,13 @@ public class CarController : MonoBehaviour
         {
             Instantiate(explosion, transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
             Destroy(gameObject);
+            YouLost();
         }
+    }
+
+    public void YouLost()
+    {
+        Time.timeScale = 0;
+        gameOverPanel.SetActive(true);
     }
 }

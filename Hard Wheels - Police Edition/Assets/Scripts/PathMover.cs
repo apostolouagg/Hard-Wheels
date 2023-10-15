@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PathMover : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class PathMover : MonoBehaviour
     // Explosion
     [SerializeField] private GameObject explosion;
 
+    private static double kills;
+    private static double result;
+
+    public Text text;
+
+    public GameObject wellDonePanel;
+
     //the rotation target for the current frame
     private Quaternion rotationGoal;
     //the direction to the next waypoint that the agent needs to rotate towards
@@ -24,6 +32,9 @@ public class PathMover : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        wellDonePanel.SetActive(false);
+        kills = 9;
+
         currentPath = paths.GetRandomWaypoint(); // Χρησιμοποίησε τη συνάρτηση GetRandomWaypoint για την αρχική θέση.
         transform.position = currentPath.position;
         currentPath = paths.GetNextWaypoint(currentPath);
@@ -38,7 +49,6 @@ public class PathMover : MonoBehaviour
         if (Vector3.Distance(transform.position, currentPath.position) < distanceThreshold)
         {
             currentPath = paths.GetNextWaypoint(currentPath);
-            //transform.LookAt(currentPath);
         }
 
         RotateTowardsWaypoint();
@@ -52,12 +62,27 @@ public class PathMover : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationGoal, rotateSpeed * Time.deltaTime);
     }
 
+    //1 2 2 4
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Player") && gameObject.tag != "Enemy")
         {
             Instantiate(explosion, transform.position, Quaternion.Euler(new Vector3(-90, 0, 0)));
             Destroy(gameObject);
+
+            kills -= 1; // Μείωση της τιμής του kills κατά 1
+
+            if (kills == 0)
+            {
+                YouWon();
+            }
         }
+    }
+
+    public void YouWon()
+    {
+        Time.timeScale = 0;
+        wellDonePanel.SetActive(true);
     }
 }

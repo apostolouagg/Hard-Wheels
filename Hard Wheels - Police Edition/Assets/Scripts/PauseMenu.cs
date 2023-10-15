@@ -155,6 +155,7 @@ public class PauseMenu : MonoBehaviour
 
     public void YesQuit()
     {
+        areYouSureQuitPanel.SetActive(false);
         Time.timeScale = 1;
         SceneManager.LoadScene("MenuScene");
     }
