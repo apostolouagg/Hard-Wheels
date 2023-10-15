@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour
     public GameObject briefPanel;
     public GameObject levelsPanel;
     public GameObject controlsPanel;
+    public GameObject loadingPanel;
     public GameObject MenuBackground2;
     public GameObject MenuBackground3;
 
@@ -28,11 +29,12 @@ public class MenuController : MonoBehaviour
         controlsPanel.SetActive(false);
         MenuBackground2.SetActive(false);
         MenuBackground3.SetActive(false);
+        loadingPanel.SetActive(false);
     }
 
     public void playButton()
     {
-        SceneManager.LoadScene("GameScene");
+        //SceneManager.LoadScene("GameScene");
     }
 
     public void EasyDifficulty()

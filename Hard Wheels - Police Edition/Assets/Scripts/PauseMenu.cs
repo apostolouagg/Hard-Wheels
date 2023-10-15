@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject areYouSureQuitPanel;
     public GameObject areYouSureRestartPanel;
     public GameObject backButton;
+    public GameObject loadingPanel;
 
     public GameObject yesRestartButton;
     
@@ -26,10 +27,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Start()
     {
+        Time.timeScale = 1;
         pauseMenuPanel.SetActive(false);
         controlsPanel.SetActive(false);
         areYouSureQuitPanel.SetActive(false);
         areYouSureRestartPanel.SetActive(false);
+        loadingPanel.SetActive(false);
     }
 
     public void Update()

@@ -29,7 +29,7 @@ public class Paths : MonoBehaviour
             }*/
         }
 
-        //Gizmos.DrawLine(transform.GetChild(transform.childCount - 1).position, transform.GetChild(0).position);
+        Gizmos.DrawLine(transform.GetChild(transform.childCount - 1).position, transform.GetChild(0).position);
     }
 
     public Transform GetNextWaypoint(Transform currentWaypoint)

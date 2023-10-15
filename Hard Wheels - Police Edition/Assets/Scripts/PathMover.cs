@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,8 +58,8 @@ public class PathMover : MonoBehaviour
         //RotateTowardsWaypoint();
 
         GetCoordinations(); // Προσθήκη για να λάβετε το input
-        HandleMotor();
-        ApplyBreaking();
+        //HandleMotor();
+        //ApplyBreaking();
         HandleSteering();
     }
 
@@ -76,10 +76,10 @@ public class PathMover : MonoBehaviour
         directionToWaypoint = (currentPath.position - transform.position).normalized;
         rotationGoal = Quaternion.LookRotation(directionToWaypoint);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationGoal, rotateSpeed * Time.deltaTime);
-        currentSteerAngle = transform.rotation;
+        //currentSteerAngle = transform.rotation;
     }
 
-    /*private void HandleMotor()
+    *//*private void HandleMotor()
     {
         if (isBreaking && Mathf.Abs(horizontalInput) > 0)
         {
@@ -110,7 +110,7 @@ public class PathMover : MonoBehaviour
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
         backLeftWheelCollider.brakeTorque = currentbreakForce;
         backRightWheelCollider.brakeTorque = currentbreakForce;
-    }*/
+    }*//*
 
     private void HandleSteering()
     {
@@ -119,19 +119,19 @@ public class PathMover : MonoBehaviour
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
 
-    /*private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
+    *//*private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
     {
         Vector3 pos;
         Quaternion rot;
         wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
-    }*/
+    }*//*
 
-}
+}*/
 
 
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -184,4 +184,4 @@ public class PathMover : MonoBehaviour
         rotationGoal = Quaternion.LookRotation(directionToWaypoint);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotationGoal, rotateSpeed * Time.deltaTime);
     }
-}*/
+}
