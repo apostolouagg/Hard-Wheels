@@ -3454,9 +3454,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"Hard Wheels Police Chase Edition" is a racing game where the player operates
-    a car moving through a city. The goal of the game is to collect as many points
-    as possible by destroying other cars before getting caught by the police.'
+  m_text: '"Hard Wheels Police Chase Edition" is a game where the player operates
+    a car moving through a city. The goal is to destroy all the cars before the time
+    runs out. BUT be careful, you can not destroy police vechiles, trucks or busses.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 328a82b9b6b39e14b85f6ae49004ffac, type: 2}
   m_sharedMaterial: {fileID: 7996597351939278115, guid: 328a82b9b6b39e14b85f6ae49004ffac, type: 2}

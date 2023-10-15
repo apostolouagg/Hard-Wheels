@@ -55,6 +55,10 @@ public class PauseMenu : MonoBehaviour
         {
             time = 60f;
         }
+        else
+        {
+            time = 180f;
+        }
     }
 
     public void Update()
